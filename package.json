@@ -1,0 +1,24 @@
+{
+  "name": "triangles-cypher-nft",
+  "version": "1.0.0",
+  "description": "This repository contains a deployable smart contract to mint an NFT that registers and verifies the authorship of the Advecedary Encoder project on-chain, ensuring immutable proof of origin and protecting its non-commercial license.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/geralm/triangles-cypher-nft.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/geralm/triangles-cypher-nft/issues"
+  },
+  "homepage": "https://github.com/geralm/triangles-cypher-nft#readme",
+  "dependencies": {
+    "dotenv": "^17.2.0"
+  }
+}
