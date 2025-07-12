@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/geralm/triangles-cypher-nft#readme",
   "dependencies": {
-    "dotenv": "^17.2.0"
+    "dotenv": "^17.2.0",
+    "pinata": "^2.4.9"
   }
 }
