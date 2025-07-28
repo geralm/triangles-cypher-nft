@@ -14,7 +14,7 @@ import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
 import {ERC721URIStorage, ERC721} from "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 
 // Contract declaration
-contract TrianglesAlphabet is ERC721URIStorage, Ownable {
+contract Alphabet is ERC721URIStorage, Ownable {
     uint256 private _nextTokenId; // check https://docs.openzeppelin.com/contracts/5.x/erc721 for more info
     uint256 public mintPrice; // minimun price to mint an alphabet NFT
     uint256 public totalDonated; // Obviosly.
@@ -42,6 +42,9 @@ contract TrianglesAlphabet is ERC721URIStorage, Ownable {
         string memory _githubUrl,
         uint256 _initialMintPrice
     ) Ownable(msg.sender) ERC721("TrianglesAlphabet", "TRI") {
+        require(bytes(_alphabetUrl).length > 0, "Alphabet URL cannot be empty");
+        require(bytes(_githubUrl).length > 0, "GitHub URL cannot be empty");
+        require(_initialMintPrice > 0, "Initial mint price must be greater than 0");
         baseAlphabetUrl = _alphabetUrl;
         githubRepositoryUrl = _githubUrl;
         mintPrice = _initialMintPrice; // Set the initial mint price
