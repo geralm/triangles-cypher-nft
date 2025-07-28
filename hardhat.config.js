@@ -7,5 +7,15 @@ module.exports = {
     currency: 'USD',
     etherscan: process.env.ETHERSCAN_API_KEY,
     coinmarketcap: process.env.COINMARKETCAP_API_KEY,
-  }
+  },
+  networks: {
+    sepolia: {
+      url: `https://sepolia.infura.io/v3/${process.env.INFURA_API_KEY}`,
+      accounts: [process.env.SEPOLIA_PRIVATE_KEY],
+    },
+    mainnet: {
+      url: `https://mainnet.infura.io/v3/${process.env.INFURA_API_KEY}`,
+      accounts: [process.env.MAINNET_PRIVATE_KEY],
+    },
+  },
 };

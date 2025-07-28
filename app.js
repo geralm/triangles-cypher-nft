@@ -20,10 +20,9 @@ async function main(filename) {
       fileData.filename,
       fileData.mimetype
     );
-    
-    console.log(`📋 IPFS Hash: ${upload.IpfsHash}`);
-    console.log(`🔗 URL: https://gateway.pinata.cloud/ipfs/${upload.IpfsHash}`);
-    console.log(`📊 Size: ${upload.PinSize} bytes`);
+    console.log(`✅ ${fileData.filename} has been uploaded successfully to Pinata!`);
+    console.log(`📋 Upload Details: ${JSON.stringify(upload)}`)
+
     
     return upload;
   } catch (error) {
