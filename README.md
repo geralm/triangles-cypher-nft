@@ -7,5 +7,8 @@ This repository contains a deployable smart contract to mint an NFT that registe
 
 
 
+# Hardhat documentation
+https://hardhat.org/hardhat-runner/docs/getting-started#overview
+
 
 - gera
