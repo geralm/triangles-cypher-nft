@@ -1,0 +1,66 @@
+@layer theme, base, mui, components, utilities;
+@import "tailwindcss";
+
+/* Apply theme colors using CSS variables and Tailwind's theming */
+:root {
+  /* Light Theme 
+  --background: theme('colors.alabaster.DEFAULT');
+  --foreground: theme('colors.eerie_black.DEFAULT');
+  --primary: theme('colors.saffron.DEFAULT');
+  --secondary: theme('colors.platinum.DEFAULT');
+  --accent: theme('colors.jet.DEFAULT');
+  Dark*/
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* Dark
+    --background: theme('colors.eerie_black.DEFAULT');
+    --foreground: theme('colors.alabaster.DEFAULT');
+    --primary: theme('colors.saffron.DEFAULT');
+    --secondary: theme('colors.jet.DEFAULT');
+    --accent: theme('colors.platinum.DEFAULT');
+     Theme */
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Apply colors to specific components using utility classes 
+.navbar {
+  background-color: var(--secondary);
+  color: var(--foreground);
+}
+
+.editor-container {
+   background-color: var(--background);
+  color: var(--foreground);
+}
+
+.footer {
+   background-color: var(--secondary);
+  color: var(--foreground);
+}
+
+.modal-paper {
+  background-color: var(--background);
+  color: var(--foreground);
+
+}*/
+
+/* You may need to add more specific classes or styles based on your component structure */
+
+@layer utilities {
+  .animate-marquee {
+    animation: marquee 15s linear infinite;
+  }
+}
+
+@keyframes marquee {
+  0% { transform: translateX(100%); }
+  100% { transform: translateX(-100%); }
+}
