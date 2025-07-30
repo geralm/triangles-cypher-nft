@@ -5,8 +5,8 @@ const { buildModule } = require("@nomicfoundation/hardhat-ignition/modules");
 
 
 const INITIAL_MINT_PRICE = 5550000000000000; // 0,00555 ETH in wei
-const GITHUB_REPO_URL = "https://github.com/geralm/triangles-cypher-nft.git"
-const ALPHABET_URL = "https://indigo-genuine-chameleon-200.mypinata.cloud/ipfs/bafkreibkizi2veefvnakwb47hdq454h5aqk7vfwj3uxaw6kluxagin6xre"
+const GITHUB_REPO_URL = process.env.GITHUB_REPO_URL
+const ALPHABET_URL = process.env.ALPHABET_URL
 
 module.exports = buildModule("AlphabetModule", (m) => {
   // Check https://hardhat.org/ignition/docs/guides/creating-modules for more details
