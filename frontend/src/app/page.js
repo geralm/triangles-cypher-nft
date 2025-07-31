@@ -73,7 +73,7 @@ function Home() {
     setRandomFooterText(generateRandomTriLetterText(30));
   }, []);
 
- 
+
 
   const [displayedText, setDisplayedText] = useState(['', '', '', '', '', '', '', '']);
   const [isEncoded, setIsEncoded] = useState(false);
@@ -114,7 +114,7 @@ function Home() {
 
   const handleViewIps = () => {
     // TODO: Replace with the actual URL of the IPS document on the blockchain
-    window.open(contractData.baseAlphabetUrl , '_blank');
+    window.open(contractData.baseAlphabetUrl, '_blank');
   };
 
   return (
@@ -194,18 +194,28 @@ function Home() {
           <Typography variant="h4" component="h2" align="center" gutterBottom sx={{ color: theme.palette.text.primary }}>
             About the Contract
           </Typography>
+
           <Paper elevation={3} sx={{ p: 4, mt: 4 }}>
             <Typography variant="h6" gutterBottom sx={{ color: theme.palette.text.primary }}>Contract Address:</Typography>
             <Typography variant="body1" color="text.secondary" sx={{ wordBreak: 'break-all' }}>{contractData.address}</Typography>
-            <Typography variant="h6" gutterBottom sx={{ mt: 3, color: theme.palette.text.primary }}>Total Donated Amount:</Typography>
+
+            <Typography variant="h6" gutterBottom sx={{ mt: 3, color: theme.palette.text.primary }}>Total Donated:</Typography>
             <Typography variant="body1" color="text.secondary">{contractData.totalDonated} ETH</Typography>
+
+
             <Box sx={{ mt: 4, textAlign: 'center' }}>
-              {/* New Button to view Alphabet */}
               <Button
                 variant="outlined"
                 startIcon={<DescriptionIcon />}
                 onClick={handleViewIps}
-                sx={{ fontSize: '1.2rem', padding: '12px 24px', marginRight: '16px', color: theme.palette.text.primary, borderColor: theme.palette.text.primary, '&:hover': { borderColor: theme.palette.secondary.dark } }} // Add some margin to the right and set text color
+                sx={{
+                  fontSize: '1.2rem',
+                  padding: '12px 24px',
+                  marginRight: '16px',
+                  color: theme.palette.text.primary,
+                  borderColor: theme.palette.text.primary,
+                  '&:hover': { borderColor: theme.palette.secondary.dark }
+                }}
               >
                 View Alphabet
               </Button>
@@ -213,11 +223,12 @@ function Home() {
                 variant="contained"
                 color="success"
                 onClick={handleDonate}
-                sx={{ fontSize: '1.2rem', padding: '12px 24px' }} // Increased font size and padding
+                sx={{ fontSize: '1.2rem', padding: '12px 24px' }}
               >
                 Buy Me a Coffee
               </Button>
             </Box>
+
             <Box sx={{ mt: 4, textAlign: 'center' }}>
               <Button variant="outlined" disabled>
                 Coming Soon... Mint your own alphabet
@@ -226,6 +237,7 @@ function Home() {
           </Paper>
         </Container>
       </section>
+
 
       <footer className="py-8 text-center" style={{ backgroundColor: theme.palette.accent.main, color: theme.palette.alabaster.main }}>
         <Container maxWidth="md">

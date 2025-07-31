@@ -8,7 +8,7 @@ import { CacheProvider } from '@emotion/react';
 import { AlphabetProvider } from '../context/AlphabetContext';
 import { ThemeProvider } from '../context/ThemeContext'; // Import custom ThemeProvider
 import { ContractProvider } from '../context/ContractContext'; // Import ContractProvider
-import AlertEvent from '../components/AlertEvent';
+import { AlertProvider } from '../components/AlertManager';
 
 const cache = createEmotionCache();
 
@@ -19,13 +19,17 @@ export default function RootLayout({ children }) {
       <body >
         <CacheProvider value={cache}>
           <ThemeProvider> {/* Wrap components with custom ThemeProvider */}
+
             <AlphabetProvider>
               <ContractProvider> {/* Wrap components with ContractProvider */}
-                <AlertEvent />
-                <Navbar />
-                {children}
+                <AlertProvider>
+
+                  <Navbar />
+                  {children}
+                </AlertProvider>
               </ContractProvider>
             </AlphabetProvider>
+
           </ThemeProvider>
         </CacheProvider>
       </body>

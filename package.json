@@ -6,7 +6,7 @@
   "scripts": {
     "test": "hardhat test",
     "compile": "hardhat compile",
-    "deploy": "hardhat ignition deploy ./ignition/modules/Alphabet.js --network sepolia"
+    "deploy": "hardhat ignition deploy ./ignition/modules/Alphabet.js --network mainnet"
   },
   "repository": {
     "type": "git",

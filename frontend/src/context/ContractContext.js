@@ -2,7 +2,8 @@
 
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { ethers } from 'ethers';
-import AlphabetFactory from '@/abi/Alphabet.json'
+import AlphabetFactory from '@/abi/Alphabet.json';
+
 const ContractContext = createContext(null);
 
 export const ContractProvider = ({ children }) => {
@@ -11,48 +12,61 @@ export const ContractProvider = ({ children }) => {
   const [contractData, setContractData] = useState({
     address: 'loading... ',
     totalDonated: 'loading...',
+    totalDonatedUSD: 'loading...',
+    deployedAt: 'loading...',
     githubRepositoryUrl: '',
     baseAlphabetUrl: '',
-    mintPrice: 'loading...',
-  })
-  const contractAddress = "0x77B3d33F95054A1d887467fE0635D15Cc8f68931"; // ✅ Define esta variable en tu .env
+    mintPrice: 'loading...'
+  });
+
+  const contractAddress = "0x77B3d33F95054A1d887467fE0635D15Cc8f68931";
   const contractAbi = AlphabetFactory.abi;
-  console.log("Contrato conectado:", contract?.target || contract?.address);
-  console.log("🔵 Contract Address:", contractAddress)
-  console.log("🔵 Contract ABI:", contractAbi);
+
   useEffect(() => {
     const init = async () => {
       try {
         const isBrowser = typeof window !== "undefined" && typeof window.ethereum !== "undefined";
-
         let provider;
         let signer = null;
 
         if (isBrowser) {
           provider = new ethers.BrowserProvider(window.ethereum);
-          const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-          signer = await provider.getSigner();
-          setAccount(accounts[0]);
-
-          // Escucha cambios de cuenta
-          window.ethereum.on('accountsChanged', (accounts) => {
-            setAccount(accounts[0] || null);
-          });
-
+          const accounts = await window.ethereum.request({ method: 'eth_accounts' });
+          if (accounts.length > 0) {
+            signer = await provider.getSigner();
+            setAccount(accounts[0]);
+            window.ethereum.on('accountsChanged', (accounts) => {
+              setAccount(accounts[0] || null);
+            });
+          }
         } else {
-          provider = new ethers.JsonRpcProvider("https://sepolia.infura.io/v3/2420f4f7657b4eb5ac749356b1f2ec46"); // Infura/Alchemy/Local
+          provider = new ethers.JsonRpcProvider("https://sepolia.infura.io/v3/2420f4f7657b4eb5ac749356b1f2ec46");
         }
 
         const contractInstance = new ethers.Contract(contractAddress, contractAbi, signer || provider);
-        const data = {
-          address: contractInstance.target,
-          totalDonated: ethers.formatEther(await contractInstance.totalDonated()), // Convert BigInt to string
-          githubRepositoryUrl: await contractInstance.githubRepositoryUrl(),
-          baseAlphabetUrl: await contractInstance.baseAlphabetUrl(),
-          mintPrice: (await contractInstance.mintPrice()).toString(), // Convert BigInt to string
-        };
+        const [totalDonated, githubRepo, baseUrl, mintPrice, blockNumber] = await Promise.all([
+          contractInstance.totalDonated(),
+          contractInstance.githubRepositoryUrl(),
+          contractInstance.baseAlphabetUrl(),
+          contractInstance.mintPrice(),
+          provider.getBlockNumber()
+        ]);
+
+        const block = await provider.getBlock(blockNumber);
+        const deployedAt = new Date(block.timestamp * 1000).toLocaleString();
+
         setContract(contractInstance);
-        setContractData(data);
+        setContractData(prev => ({
+          ...prev,
+          address: contractInstance.target,
+          totalDonated: ethers.formatEther(totalDonated),
+          githubRepositoryUrl: githubRepo,
+          baseAlphabetUrl: baseUrl,
+          mintPrice: mintPrice.toString(),
+          deployedAt
+        }));
+
+        //fetchETHPrice(ethers.formatEther(totalDonated));
       } catch (err) {
         console.error("🔴 Error initializing contract:", err);
         setContract(null);
@@ -60,16 +74,29 @@ export const ContractProvider = ({ children }) => {
         setContractData({
           address: 'Contract not loaded',
           totalDonated: 'Contract not loaded',
+          totalDonatedUSD: 'Contract not loaded',
+          deployedAt: 'Contract not loaded',
           githubRepositoryUrl: '',
           baseAlphabetUrl: '',
-          mintPrice: 'Contract not loaded',
+          mintPrice: 'Contract not loaded'
         });
       }
     };
 
+    const fetchETHPrice = async (ethAmount) => {
+     
+    };
+
+    const interval = setInterval(() => {
+      if (contractData.totalDonated && contractData.totalDonated !== 'Contract not loaded') {
+        fetchETHPrice(contractData.totalDonated);
+      }
+    }, 5000);
+
     init();
 
     return () => {
+      clearInterval(interval);
       if (typeof window !== "undefined" && window.ethereum?.removeListener) {
         window.ethereum.removeListener('accountsChanged', () => { });
       }
