@@ -19,7 +19,8 @@ export const ContractProvider = ({ children }) => {
     mintPrice: 'loading...'
   });
 
-  const contractAddress = "0x77B3d33F95054A1d887467fE0635D15Cc8f68931";
+  const contractAddress = "0xeC52F9435b1e1B7F846178426f502a17B2A0375A";
+  const jsonRpcProvider = "https://mainnet.infura.io/v3/2420f4f7657b4eb5ac749356b1f2ec46"; // Sepolia testnet RPC URL
   const contractAbi = AlphabetFactory.abi;
 
   useEffect(() => {
@@ -40,7 +41,7 @@ export const ContractProvider = ({ children }) => {
             });
           }
         } else {
-          provider = new ethers.JsonRpcProvider("https://sepolia.infura.io/v3/2420f4f7657b4eb5ac749356b1f2ec46");
+          provider = new ethers.JsonRpcProvider(jsonRpcProvider);
         }
 
         const contractInstance = new ethers.Contract(contractAddress, contractAbi, signer || provider);

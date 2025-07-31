@@ -9,10 +9,10 @@ module.exports = {
     coinmarketcap: process.env.COINMARKETCAP_API_KEY,
   },
   networks: {
-    sepolia: {
+    /*sepolia: {
       url: `https://sepolia.infura.io/v3/${process.env.INFURA_WORKSPACE_ID}`,
       accounts: [process.env.WALLET_PRIVATE_KEY],
-    },
+    },*/
     mainnet: {
       url: `https://mainnet.infura.io/v3/${process.env.INFURA_WORKSPACE_ID}`,
       accounts: [process.env.WALLET_PRIVATE_KEY],
